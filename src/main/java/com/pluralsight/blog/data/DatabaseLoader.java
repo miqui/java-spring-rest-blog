@@ -43,10 +43,13 @@ public class DatabaseLoader implements ApplicationRunner {
             String template = templates[i % templates.length];
             String gadget = gadgets[i % gadgets.length];
 
+            Author author =  authors.get(i % authors.size());
             String title = String.format(template, gadget);
             Post post = new Post(title, "Lorem ipsum dolor sit amet, consectetur adipiscing elit… ");
+            author.addPost(post);
             randomPosts.add(post);
         });
         postRepository.saveAll(randomPosts);
+        authorRepository.saveAll(authors);
     }
 }
