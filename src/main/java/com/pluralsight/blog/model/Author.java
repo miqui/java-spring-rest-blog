@@ -10,6 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/*
+To see this working, first re-run the app. Then in the terminal, run curl -H "Accept: application/json" -i http://localhost:8080/posts/1.
+You should see ETag: “0” at the top along with the Post’s data.
+
+Now we can do another GET, but instead only ask for results if the ETag is not 0 -
+curl -H "Accept: application/json" -H 'If-None-Match: "0"' -i http://localhost:8080/posts/1.
+ This time, we get HTTP/1.1 304 Not Modified since the ETag is still 0.
+ */
 @Entity
 public class Author {
     public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
@@ -22,6 +31,9 @@ public class Author {
     private String username;
     @JsonIgnore
     private String password;
+
+    @Version
+    private Long version;
 
     @OneToMany
     private List<Post> posts;
