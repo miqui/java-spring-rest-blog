@@ -14,5 +14,5 @@ Assume we don’t want to allow browsing the authors at all, we only want author
         Add @RepositoryRestResource(exported = false) before the AuthorRepository interface declaration.
 */
 @RepositoryRestResource(exported = false)
-@Component
+//@Component
 public interface AuthorRepository extends JpaRepository<Author, Long> {}
